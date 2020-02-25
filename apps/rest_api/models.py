@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 class Category(models.Model):
 	name = models.CharField(max_length=30, unique=True)
 
@@ -25,4 +24,3 @@ class Comment(models.Model):
 
 	def __str__(self):
 		return f'{self.author} - {self.body[:40]}...'
-

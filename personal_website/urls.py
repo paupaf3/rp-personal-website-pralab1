@@ -1,23 +1,21 @@
+"""personal_website URL Configuration
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/3.0/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
 from django.urls import path, include
-from apps.rest_api import views
-from rest_framework import routers
-
-# Way 1 (using router)
-router = routers.DefaultRouter()
-# Routers automatically determine how the URLs for an application should be mapped
-# to the logic that deals with handling incoming requests.
-# DefaultRouter: https://www.django-rest-framework.org/api-guide/routers/
-
-router.register('categories', views.CategoryView)
-router.register('posts', views.PostView, base_name='post')
-# base_name is used to specify the initial part of the view name pattern.
 
 urlpatterns = [
-	path('', include(router.urls)),
-
-	# Way 2 (manually)
-	path('comments/', views.CommentListView.as_view(), name='comment-list'),
-	path('comments/<int:pk>/', views.CommentDetailView.as_view(), name='comment-detail')
-	# as_view() function returns a callable view that takes a request and returns a response.
-	# name defines which name is provided to the URL pattern defined.
+    path('admin/', admin.site.urls),
+	path('api/', include('apps.rest_api.urls'))
 ]
