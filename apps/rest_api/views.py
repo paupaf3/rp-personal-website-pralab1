@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from apps.rest_api import models, serializers
 
 # Way 1 (using Viewsets - ModelViewSet)
@@ -22,7 +23,7 @@ class PostView(viewsets.ViewSet):
 	# any implementations of actions. In order to use a ViewSet class you will
 	# override the class and define the action implementations explicitly.
 	serializer_class = serializers.PostSerializer
-
+	permission_classes = [IsAuthenticated, IsAdminUser]
 	def list(self, request):
 		"""HTTP GET /posts/"""
 		queryset = models.Post.objects.all()
